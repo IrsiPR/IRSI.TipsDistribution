@@ -32,11 +32,16 @@ var builder = Host.CreateDefaultBuilder(args)
         services.AddMediatR(configuration =>
             configuration.RegisterServicesFromAssembly(typeof(ApplicationExtensions).Assembly));
 
-        services.AddSingleton<IEnvironment, EnvironmentWrapper>();
-        services.AddSingleton<IFileSystem, FileSystemWrapper>();
-        services.AddSingleton<IDateOnly, DateOnlyWrapper>();
-        
-        services.AddTransient<IDatedFoldersService, DatedFoldersService>();
+        services.AddHttpClient<ICreciPayHttpClient, CreciPayHttpClient>((provider, client) =>
+        {
+            client.BaseAddress = new("https://rpc.serv.crecipay.com");
+        });
+
+        services.AddTransient<IEnvironment, EnvironmentWrapper>();
+        services.AddTransient<IFileSystem, FileSystemWrapper>();
+        services.AddTransient<IDateOnly, DateOnlyWrapper>();
+
+        services.AddTransient<IProcess, ProcessWrapper>();
     })
     .UseSerilog((context, configuration) =>
     {
