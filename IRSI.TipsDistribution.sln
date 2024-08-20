@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{86AAD8D3-22B5-4F9B-BA68-57EDBF239C35}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRSI.TipsDistribution.Cli", "src\IRSI.TipsDistribution.Cli\IRSI.TipsDistribution.Cli.csproj", "{89653821-099C-4369-8480-D62E9223DB39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRSI.TipsDistribution.Application", "src\IRSI.TipsDistribution.Application\IRSI.TipsDistribution.Application.csproj", "{92856DA3-F10D-4FC6-9E56-C7D2A15848FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRSI.TipsDistribution.Infrastructure", "src\IRSI.TipsDistribution.Infrastructure\IRSI.TipsDistribution.Infrastructure.csproj", "{81EC9574-FCF7-4D87-8274-75169D4FCCAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRSI.CommonTools", "src\IRSI.CommonTools\IRSI.CommonTools.csproj", "{D12C782B-5DB5-4F33-B393-15D87F71FE32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRSI.CommonTools.Abstractions", "src\IRSI.CommonTools.Abstractions\IRSI.CommonTools.Abstractions.csproj", "{944AA3F4-EAC2-47B2-9190-029ED4FC6A28}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{89653821-099C-4369-8480-D62E9223DB39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89653821-099C-4369-8480-D62E9223DB39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89653821-099C-4369-8480-D62E9223DB39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89653821-099C-4369-8480-D62E9223DB39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92856DA3-F10D-4FC6-9E56-C7D2A15848FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92856DA3-F10D-4FC6-9E56-C7D2A15848FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92856DA3-F10D-4FC6-9E56-C7D2A15848FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92856DA3-F10D-4FC6-9E56-C7D2A15848FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81EC9574-FCF7-4D87-8274-75169D4FCCAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81EC9574-FCF7-4D87-8274-75169D4FCCAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81EC9574-FCF7-4D87-8274-75169D4FCCAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81EC9574-FCF7-4D87-8274-75169D4FCCAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D12C782B-5DB5-4F33-B393-15D87F71FE32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D12C782B-5DB5-4F33-B393-15D87F71FE32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D12C782B-5DB5-4F33-B393-15D87F71FE32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D12C782B-5DB5-4F33-B393-15D87F71FE32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{944AA3F4-EAC2-47B2-9190-029ED4FC6A28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{944AA3F4-EAC2-47B2-9190-029ED4FC6A28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{944AA3F4-EAC2-47B2-9190-029ED4FC6A28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{944AA3F4-EAC2-47B2-9190-029ED4FC6A28}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{89653821-099C-4369-8480-D62E9223DB39} = {86AAD8D3-22B5-4F9B-BA68-57EDBF239C35}
+		{92856DA3-F10D-4FC6-9E56-C7D2A15848FE} = {86AAD8D3-22B5-4F9B-BA68-57EDBF239C35}
+		{81EC9574-FCF7-4D87-8274-75169D4FCCAD} = {86AAD8D3-22B5-4F9B-BA68-57EDBF239C35}
+		{D12C782B-5DB5-4F33-B393-15D87F71FE32} = {86AAD8D3-22B5-4F9B-BA68-57EDBF239C35}
+		{944AA3F4-EAC2-47B2-9190-029ED4FC6A28} = {86AAD8D3-22B5-4F9B-BA68-57EDBF239C35}
+	EndGlobalSection
+EndGlobal

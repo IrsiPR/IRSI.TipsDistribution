@@ -1,0 +1,25 @@
+﻿{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "IRSI.TipsDistribution.Cli": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "IBERDIR": "D:\\BootDrv\\Aloha"
+      }
+    },
+    "IRSI.TipsDistribution.Cli Distribute": {
+      "commandName": "Project",
+      "commandLineArgs": "distribute crecipay",
+      "environmentVariables": {
+        "IBERDIR": "D:\\BootDrv\\Aloha"
+      }
+    },
+    "IRSI.TipsDistribution.Cli Distribute Final": {
+      "commandName": "Project",
+      "commandLineArgs": "distribute crecipay -f",
+      "environmentVariables": {
+        "IBERDIR": "D:\\BootDrv\\Aloha"
+      }
+    }
+  }
+}
