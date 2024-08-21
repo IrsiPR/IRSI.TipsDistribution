@@ -19,6 +19,7 @@ public class DistributeCreciPayRequestHandler : IRequestHandler<DistributeCreciP
     private readonly ILogger<DistributeCreciPayRequestHandler> _logger;
     private readonly ICreciPayHttpClient _creciPayHttpClient;
     private readonly IOptions<StoreSettings> _storeOptions;
+    private readonly IOptions<CreciPaySettings> _creciPayOptions;
 
     public DistributeCreciPayRequestHandler(IEnvironment environment,
         IFileSystem fileSystem,
@@ -26,7 +27,7 @@ public class DistributeCreciPayRequestHandler : IRequestHandler<DistributeCreciP
         IProcess process,
         ILogger<DistributeCreciPayRequestHandler> logger,
         ICreciPayHttpClient creciPayHttpClient,
-        IOptions<StoreSettings> storeOptions)
+        IOptions<StoreSettings> storeOptions, IOptions<CreciPaySettings> creciPayOptions)
     {
         _environment = environment;
         _fileSystem = fileSystem;
@@ -35,6 +36,7 @@ public class DistributeCreciPayRequestHandler : IRequestHandler<DistributeCreciP
         _logger = logger;
         _creciPayHttpClient = creciPayHttpClient;
         _storeOptions = storeOptions;
+        _creciPayOptions = creciPayOptions;
     }
 
     private const string IBERDIR = "IBERDIR";
@@ -82,10 +84,19 @@ public class DistributeCreciPayRequestHandler : IRequestHandler<DistributeCreciP
             }
 
             memoryStream.Seek(0, SeekOrigin.Begin);
-            await _creciPayHttpClient.UploadFinal(_storeOptions.Value.StoreId, _storeOptions.Value.Token, memoryStream);
+            var response = await _creciPayHttpClient.UploadFinal(_storeOptions.Value.StoreId,
+                _creciPayOptions.Value.Token, memoryStream);
+            if (response.IsSuccessStatusCode)
+            {
+                _logger.LogInformation("CreciPay Recurring uploaded successfully");
+            }
+            else
+            {
+                _logger.LogInformation("Failed to upload CreciPay Recurring with {StatusCode}", response.StatusCode);
+                var content = await response.Content.ReadAsStringAsync();
+                _logger.LogError("Response content: {Content}", content);
+            }
         }
-
-        Console.WriteLine("Distributing CreciPay Final for {0}", businessDate);
     }
 
     private async Task DistributeCreciPayRecurring()
@@ -121,7 +132,19 @@ public class DistributeCreciPayRequestHandler : IRequestHandler<DistributeCreciP
         }
 
         memoryStream.Seek(0, SeekOrigin.Begin);
-        await _creciPayHttpClient.UploadRecurring(_storeOptions.Value.StoreId, _storeOptions.Value.Token, memoryStream);
+        var response = await _creciPayHttpClient.UploadRecurring(_storeOptions.Value.StoreId,
+            _creciPayOptions.Value.Token, memoryStream);
+
+        if (response.IsSuccessStatusCode)
+        {
+            _logger.LogInformation("CreciPay Recurring uploaded successfully");
+        }
+        else
+        {
+            _logger.LogInformation("Failed to upload CreciPay Recurring with {StatusCode}", response.StatusCode);
+            var content = await response.Content.ReadAsStringAsync();
+            _logger.LogError("Response content: {Content}", content);
+        }
     }
 
     private Task GrindToday()
@@ -129,10 +152,11 @@ public class DistributeCreciPayRequestHandler : IRequestHandler<DistributeCreciP
         var iberPath = _environment.GetEnvironmentVariable(IBERDIR) ??
                        throw new InvalidOperationException("IBERDIR not set");
         var binPath = _fileSystem.Path.Combine(iberPath, "bin");
+        var exePath = _fileSystem.Path.Combine(binPath, "grind.exe");
 
         var processStartInfo = new ProcessStartInfo
         {
-            FileName = "grind",
+            FileName = exePath,
             Arguments = "/TODAY",
             WorkingDirectory = binPath,
         };

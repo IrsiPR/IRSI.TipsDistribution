@@ -11,7 +11,7 @@ public class CreciPayHttpClient : ICreciPayHttpClient
         _httpClient = httpClient;
     }
 
-    public async Task UploadRecurring(int storeId, string token, MemoryStream stream)
+    public async Task<HttpResponseMessage> UploadRecurring(int storeId, string token, MemoryStream stream)
     {
         var content = new MultipartFormDataContent();
         content.Add(new StringContent(token), "token");
@@ -21,10 +21,10 @@ public class CreciPayHttpClient : ICreciPayHttpClient
         fileContent.Headers.ContentType = new("application/octet-stream");
         content.Add(fileContent, "zip", "recurring.zip");
 
-        await _httpClient.PostAsync("/upload-tips-recurring", content);
+        return await _httpClient.PostAsync("/upload-tips-recurring", content);
     }
 
-    public async Task UploadFinal(int storeId, string token, MemoryStream stream)
+    public async Task<HttpResponseMessage> UploadFinal(int storeId, string token, MemoryStream stream)
     {
         var content = new MultipartFormDataContent();
         content.Add(new StringContent(token), "token");
@@ -34,6 +34,6 @@ public class CreciPayHttpClient : ICreciPayHttpClient
         fileContent.Headers.ContentType = new("application/octet-stream");
         content.Add(fileContent, "zip", "final.zip");
 
-        await _httpClient.PostAsync("/upload-tips-daily", content);
+        return await _httpClient.PostAsync("/upload-tips-daily", content);
     }
 }

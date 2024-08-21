@@ -33,6 +33,7 @@ var builder = Host.CreateDefaultBuilder(args)
     {
         services.Configure<StoreSettings>(context.Configuration.GetSection(StoreSettings.SectionName));
         services.Configure<TaskSettings>(context.Configuration.GetSection(TaskSettings.SectionName));
+        services.Configure<CreciPaySettings>(context.Configuration.GetSection(CreciPaySettings.SectionName));
 
         services.AddMediatR(configuration =>
             configuration.RegisterServicesFromAssembly(typeof(ApplicationExtensions).Assembly));

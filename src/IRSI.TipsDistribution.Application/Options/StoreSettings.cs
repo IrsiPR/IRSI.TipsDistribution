@@ -6,5 +6,4 @@ public class StoreSettings
 
     public int StoreId { get; set; }
     public List<string> Filenames { get; set; } = [];
-    public string Token { get; set; } = string.Empty;
 }
