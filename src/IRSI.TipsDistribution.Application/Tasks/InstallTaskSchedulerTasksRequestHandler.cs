@@ -47,14 +47,13 @@ public class InstallTaskSchedulerTasksRequestHandler : IRequestHandler<InstallTa
 
             if (scheduledTask is { Interval: { } interval, Duration: { } duration })
             {
-                var trigger = new TimeTrigger()
+                var trigger = new DailyTrigger()
                 {
                     StartBoundary = DateTime.Today + scheduledTask.StartTime.ToTimeSpan()
                 };
 
                 trigger.Repetition.Interval = TimeSpan.FromMinutes(interval);
-                trigger.Repetition.Duration = TimeSpan.FromMinutes(duration);
-
+                trigger.Repetition.Duration = TimeSpan.FromHours(duration);
 
                 newTask.Triggers.Add(trigger);
             }

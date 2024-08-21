@@ -10,16 +10,16 @@ public class UnInstallTaskSchedulerTasksCommandSettings : CommandSettings
 
 public class UnInstallTaskSchedulerTasksCommand : AsyncCommand<UnInstallTaskSchedulerTasksCommandSettings>
 {
-    // private readonly IMediator _mediator;
+    private readonly IMediator _mediator;
 
-    // public UnInstallTaskSchedulerTasksCommand(IMediator mediator)
-    // {
-    //     _mediator = mediator;
-    // }
+    public UnInstallTaskSchedulerTasksCommand(IMediator mediator)
+    {
+        _mediator = mediator;
+    }
 
     public override async Task<int> ExecuteAsync(CommandContext context, UnInstallTaskSchedulerTasksCommandSettings settings)
     {
-        // await _mediator.Send(new UnInstallTaskSchedulerTasksRequest());
+        await _mediator.Send(new UnInstallTaskSchedulerTasksRequest());
         return 0;
     }
 }

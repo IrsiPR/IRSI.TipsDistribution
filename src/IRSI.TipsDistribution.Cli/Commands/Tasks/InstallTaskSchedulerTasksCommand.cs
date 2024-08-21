@@ -10,16 +10,16 @@ public class InstallTaskSchedulerTasksCommandSettings : CommandSettings
 
 public class InstallTaskSchedulerTasksCommand : AsyncCommand<InstallTaskSchedulerTasksCommandSettings>
 {
-    // private readonly IMediator _mediator;
+    private readonly IMediator _mediator;
 
-    // public InstallTaskSchedulerTasksCommand(IMediator mediator)
-    // {
-    //     _mediator = mediator;
-    // }
+    public InstallTaskSchedulerTasksCommand(IMediator mediator)
+    {
+        _mediator = mediator;
+    }
 
     public override async Task<int> ExecuteAsync(CommandContext context, InstallTaskSchedulerTasksCommandSettings settings)
     {
-        // await _mediator.Send(new InstallTaskSchedulerTasksRequest());
+        await _mediator.Send(new InstallTaskSchedulerTasksRequest());
         return 0;
     }
 }

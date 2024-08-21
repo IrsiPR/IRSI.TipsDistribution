@@ -9,6 +9,7 @@ using IRSI.TipsDistribution.Cli;
 using IRSI.TipsDistribution.Cli.Commands.Distribute;
 using IRSI.TipsDistribution.Cli.Commands.Tasks;
 using IRSI.TipsDistribution.Infrastructure;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -24,6 +25,10 @@ Log.Logger = new LoggerConfiguration()
     .CreateBootstrapLogger();
 
 var builder = Host.CreateDefaultBuilder(args)
+    .ConfigureAppConfiguration((context, configurationBuilder) =>
+    {
+        configurationBuilder.AddJsonFile("appsettings.Tokens.json", optional: false, reloadOnChange: true);
+    })
     .ConfigureServices((context, services) =>
     {
         services.Configure<StoreSettings>(context.Configuration.GetSection(StoreSettings.SectionName));
@@ -36,7 +41,7 @@ var builder = Host.CreateDefaultBuilder(args)
         {
             client.BaseAddress = new("https://rpc.serv.crecipay.com");
         });
-        
+
         services.AddTransient<IEnvironment, EnvironmentWrapper>();
         services.AddTransient<IFileSystem, FileSystemWrapper>();
         services.AddTransient<IDateOnly, DateOnlyWrapper>();

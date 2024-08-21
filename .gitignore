@@ -727,4 +727,6 @@ fabric.properties
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,visualstudiocode,rider,csharp,aspnetcore
 
 appsettings.Development.json
+appsettings.Tokens.json
 token.png
+token.txt
