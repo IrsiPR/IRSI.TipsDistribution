@@ -9,9 +9,4 @@ public class ProcessWrapper : IProcess
     {
         return Process.Start(startInfo);
     }
-
-    public Process? Start(string applicationName, string arguments)
-    {
-        return Process.Start(applicationName, arguments);
-    }
 }

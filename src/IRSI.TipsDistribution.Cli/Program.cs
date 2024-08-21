@@ -36,11 +36,10 @@ var builder = Host.CreateDefaultBuilder(args)
         {
             client.BaseAddress = new("https://rpc.serv.crecipay.com");
         });
-
+        
         services.AddTransient<IEnvironment, EnvironmentWrapper>();
         services.AddTransient<IFileSystem, FileSystemWrapper>();
         services.AddTransient<IDateOnly, DateOnlyWrapper>();
-
         services.AddTransient<IProcess, ProcessWrapper>();
     })
     .UseSerilog((context, configuration) =>

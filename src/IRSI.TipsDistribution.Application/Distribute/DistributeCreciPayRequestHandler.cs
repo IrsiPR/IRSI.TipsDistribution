@@ -12,28 +12,32 @@ namespace IRSI.TipsDistribution.Application.Distribute;
 
 public class DistributeCreciPayRequestHandler : IRequestHandler<DistributeCreciPayRequest>
 {
-    private const string IBERDIR = "IBERDIR";
-
     private readonly IEnvironment _environment;
     private readonly IFileSystem _fileSystem;
-    private readonly IDateOnly _dateOnlyWrapper;
+    private readonly IDateOnly _dateOnly;
     private readonly IProcess _process;
     private readonly ILogger<DistributeCreciPayRequestHandler> _logger;
     private readonly ICreciPayHttpClient _creciPayHttpClient;
     private readonly IOptions<StoreSettings> _storeOptions;
 
-    public DistributeCreciPayRequestHandler(IEnvironment environment, IFileSystem fileSystem, IDateOnly dateOnlyWrapper,
-        IProcess process, ILogger<DistributeCreciPayRequestHandler> logger, ICreciPayHttpClient creciPayHttpClient,
+    public DistributeCreciPayRequestHandler(IEnvironment environment,
+        IFileSystem fileSystem,
+        IDateOnly dateOnly,
+        IProcess process,
+        ILogger<DistributeCreciPayRequestHandler> logger,
+        ICreciPayHttpClient creciPayHttpClient,
         IOptions<StoreSettings> storeOptions)
     {
         _environment = environment;
         _fileSystem = fileSystem;
-        _dateOnlyWrapper = dateOnlyWrapper;
+        _dateOnly = dateOnly;
         _process = process;
         _logger = logger;
         _creciPayHttpClient = creciPayHttpClient;
         _storeOptions = storeOptions;
     }
+
+    private const string IBERDIR = "IBERDIR";
 
     public async Task Handle(DistributeCreciPayRequest request, CancellationToken cancellationToken)
     {
@@ -51,7 +55,7 @@ public class DistributeCreciPayRequestHandler : IRequestHandler<DistributeCreciP
     {
         var iberPath = _environment.GetEnvironmentVariable(IBERDIR) ??
                        throw new InvalidOperationException("IBERDIR not set");
-        var businessDate = _dateOnlyWrapper.FromDateTime(DateTime.Today).AddDays(-1);
+        var businessDate = _dateOnly.FromDateTime(DateTime.Today).AddDays(-1);
         var businessDatePath = _fileSystem.Path.Combine(iberPath, businessDate.ToString("yyyyMMdd"));
         if (_fileSystem.Directory.Exists(businessDatePath))
         {
@@ -134,7 +138,7 @@ public class DistributeCreciPayRequestHandler : IRequestHandler<DistributeCreciP
         };
 
         _logger.LogInformation("Starting Grind for Today");
-        var process = _process.Start(processStartInfo);
-        return process?.WaitForExitAsync() ?? Task.CompletedTask;
+        var process1 = _process.Start(processStartInfo);
+        return process1?.WaitForExitAsync() ?? Task.CompletedTask;
     }
 }

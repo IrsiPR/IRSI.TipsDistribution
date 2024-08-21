@@ -18,7 +18,7 @@ public class TypeRegistrar(IHostBuilder builder) : ITypeRegistrar
 
     public void RegisterLazy(Type service, Func<object> factory)
     {
-        ArgumentNullException.ThrowIfNull(factory);
+        if (factory is null) throw new ArgumentNullException(nameof(factory));
         builder.ConfigureServices(services => services.AddSingleton(service, _ => factory()));
     }
 

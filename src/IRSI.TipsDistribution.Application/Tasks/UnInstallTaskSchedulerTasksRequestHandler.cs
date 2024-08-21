@@ -7,13 +7,14 @@ namespace IRSI.TipsDistribution.Application.Tasks;
 
 public class UnInstallTaskSchedulerTasksRequestHandler : IRequestHandler<UnInstallTaskSchedulerTasksRequest>
 {
-    private const string APP_NAME = "IRSI.TipsDistribution";
     private readonly ILogger<UnInstallTaskSchedulerTasksRequestHandler> _logger;
 
     public UnInstallTaskSchedulerTasksRequestHandler(ILogger<UnInstallTaskSchedulerTasksRequestHandler> logger)
     {
         _logger = logger;
     }
+
+    private const string APP_NAME = "IRSI.TipsDistribution";
 
     public Task Handle(UnInstallTaskSchedulerTasksRequest request, CancellationToken cancellationToken)
     {

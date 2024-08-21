@@ -4,11 +4,23 @@ using Spectre.Console.Cli;
 
 namespace IRSI.TipsDistribution.Cli.Commands.Tasks;
 
-public class InstallTaskSchedulerTasksCommand(IMediator mediator) : AsyncCommand
+public class InstallTaskSchedulerTasksCommandSettings : CommandSettings
 {
-    public override async Task<int> ExecuteAsync(CommandContext context)
+}
+
+public class InstallTaskSchedulerTasksCommand : AsyncCommand<InstallTaskSchedulerTasksCommandSettings>
+{
+    // private readonly IMediator _mediator;
+
+    // public InstallTaskSchedulerTasksCommand(IMediator mediator)
+    // {
+    //     _mediator = mediator;
+    // }
+
+    public override async Task<int> ExecuteAsync(CommandContext context, InstallTaskSchedulerTasksCommandSettings settings)
     {
-        await mediator.Send(new InstallTaskSchedulerTasksRequest());
+        // await _mediator.Send(new InstallTaskSchedulerTasksRequest());
         return 0;
     }
 }
+

@@ -8,16 +8,23 @@ using TaskSettings = IRSI.TipsDistribution.Application.Options.TaskSettings;
 
 namespace IRSI.TipsDistribution.Application.Tasks;
 
-public class InstallTaskSchedulerTasksRequestHandler(
-    IOptions<TaskSettings> options,
-    ILogger<InstallTaskSchedulerTasksRequestHandler> logger)
-    : IRequestHandler<InstallTaskSchedulerTasksRequest>
+public class InstallTaskSchedulerTasksRequestHandler : IRequestHandler<InstallTaskSchedulerTasksRequest>
 {
+    private readonly IOptions<TaskSettings> _options;
+    private readonly ILogger<InstallTaskSchedulerTasksRequestHandler> _logger;
+
+    public InstallTaskSchedulerTasksRequestHandler(IOptions<TaskSettings> options,
+        ILogger<InstallTaskSchedulerTasksRequestHandler> logger)
+    {
+        _options = options;
+        _logger = logger;
+    }
+
     private const string APP_NAME = "IRSI.TipsDistribution";
 
     public Task Handle(InstallTaskSchedulerTasksRequest request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Installing task scheduler tasks");
+        _logger.LogInformation("Installing task scheduler tasks");
 
         var folder = TaskService.Instance.GetFolder(APP_NAME) ??
                      TaskService.Instance.RootFolder.CreateFolder(APP_NAME);
@@ -31,7 +38,7 @@ public class InstallTaskSchedulerTasksRequestHandler(
         var path = Path.GetDirectoryName(process.MainModule!.FileName);
         var exeName = Path.GetFileName(process.MainModule.FileName);
 
-        foreach (var scheduledTask in options.Value.Tasks)
+        foreach (var scheduledTask in _options.Value.Tasks)
         {
             var newTask = TaskService.Instance.NewTask();
             newTask.RegistrationInfo.Author = "Nelson Segarra";
@@ -62,7 +69,7 @@ public class InstallTaskSchedulerTasksRequestHandler(
 
 
             folder.RegisterTaskDefinition(scheduledTask.TaskName, newTask, TaskCreation.CreateOrUpdate,
-                options.Value.Username, options.Value.Password, TaskLogonType.Password);
+                _options.Value.Username, _options.Value.Password, TaskLogonType.Password);
         }
 
         return Task.CompletedTask;

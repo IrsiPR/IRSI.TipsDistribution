@@ -20,6 +20,22 @@
       "environmentVariables": {
         "IBERDIR": "D:\\BootDrv\\Aloha"
       }
+    },
+    "IRSI.TipsDistribution.Cli Tasks Install": {
+      "commandName": "Project",
+      "commandLineArgs": "tasks install",
+      "environmentVariables": {
+        "IBERDIR": "D:\\BootDrv\\Aloha",
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    },
+    "IRSI.TipsDistribution.Cli Tasks UnInstall": {
+      "commandName": "Project",
+      "commandLineArgs": "tasks uninstall",
+      "environmentVariables": {
+        "IBERDIR": "D:\\BootDrv\\Aloha",
+        "DOTNET_ENVIRONMENT": "Development"
+      }
     }
   }
 }

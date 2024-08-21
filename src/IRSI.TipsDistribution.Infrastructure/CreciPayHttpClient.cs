@@ -2,8 +2,15 @@
 
 namespace IRSI.TipsDistribution.Infrastructure;
 
-public class CreciPayHttpClient(HttpClient httpClient) : ICreciPayHttpClient
+public class CreciPayHttpClient : ICreciPayHttpClient
 {
+    private readonly HttpClient _httpClient;
+
+    public CreciPayHttpClient(HttpClient httpClient)
+    {
+        _httpClient = httpClient;
+    }
+
     public async Task UploadRecurring(int storeId, string token, MemoryStream stream)
     {
         var content = new MultipartFormDataContent();
@@ -14,7 +21,7 @@ public class CreciPayHttpClient(HttpClient httpClient) : ICreciPayHttpClient
         fileContent.Headers.ContentType = new("application/octet-stream");
         content.Add(fileContent, "zip", "recurring.zip");
 
-        await httpClient.PostAsync("/upload-tips-recurring", content);
+        await _httpClient.PostAsync("/upload-tips-recurring", content);
     }
 
     public async Task UploadFinal(int storeId, string token, MemoryStream stream)
@@ -25,8 +32,8 @@ public class CreciPayHttpClient(HttpClient httpClient) : ICreciPayHttpClient
 
         var fileContent = new StreamContent(stream);
         fileContent.Headers.ContentType = new("application/octet-stream");
-        content.Add(fileContent, "zip", "recurring.zip");
+        content.Add(fileContent, "zip", "final.zip");
 
-        await httpClient.PostAsync("/upload-tips-daily", content);
+        await _httpClient.PostAsync("/upload-tips-daily", content);
     }
 }
