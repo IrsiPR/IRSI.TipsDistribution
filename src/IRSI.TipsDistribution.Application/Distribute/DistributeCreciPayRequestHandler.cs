@@ -55,6 +55,7 @@ public class DistributeCreciPayRequestHandler : IRequestHandler<DistributeCreciP
 
     private async Task DistributeCreciPayFinal()
     {
+        _logger.LogInformation("Distributing CreciPay Final...");
         var iberPath = _environment.GetEnvironmentVariable(IBERDIR) ??
                        throw new InvalidOperationException("IBERDIR not set");
         var businessDate = _dateOnly.FromDateTime(DateTime.Today).AddDays(-1);
@@ -88,7 +89,7 @@ public class DistributeCreciPayRequestHandler : IRequestHandler<DistributeCreciP
                 _creciPayOptions.Value.Token, memoryStream);
             if (response.IsSuccessStatusCode)
             {
-                _logger.LogInformation("CreciPay Recurring uploaded successfully");
+                _logger.LogInformation("CreciPay Final uploaded successfully");
             }
             else
             {
